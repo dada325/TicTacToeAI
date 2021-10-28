@@ -1,4 +1,4 @@
-# write your code here
+import random
 
 def print_board(matrix):
     print("---------")
@@ -40,6 +40,7 @@ def is_in_range(move):
 
 def make_the_move(matrix):
     global state
+    global counter
     while True:
         move = next_move()
         if is_number(move):
@@ -47,14 +48,12 @@ def make_the_move(matrix):
                 move[i] = int(move[i])
             if is_in_range(move):
                 if is_not_occupied(move, matrix):
-                    if abs(count_o()-count_x()) == 0:
-                        matrix[move[0] - 1][move[1] - 1] = "X"
-                    else :
-                        matrix[move[0] - 1][move[1] - 1] = "O"
+                    matrix[move[0] - 1][move[1] - 1] = "X"
                     outcome = [matrix[0][0], matrix[0][1], matrix[0][2], matrix[1][0], matrix[1][1], matrix[1][2], matrix[2][0], matrix[2][1], matrix[2][2]]
                     join_outcome = "".join(outcome)
                     state = join_outcome
                     print_board(matrix)
+                    counter += 1
                     break
                 else:
                     print("This cell is occupied! Choose another one!")
@@ -62,6 +61,41 @@ def make_the_move(matrix):
                 print("Coordinates should be from 1 to 3!")
         else:
             print("You should enter numbers!")
+
+
+def random_move():
+    move = [random.randint(1,3),random.randint(1,3)]
+    return move
+
+
+def computer_move(matrix):
+    global state
+    global counter
+    while True:
+        move = random_move()
+        if is_not_occupied(move, matrix):
+            matrix[move[0] - 1][move[1] - 1] = "O"
+            outcome = [matrix[0][0], matrix[0][1], matrix[0][2], matrix[1][0], matrix[1][1], matrix[1][2],
+                       matrix[2][0], matrix[2][1], matrix[2][2]]
+            join_outcome = "".join(outcome)
+            state = join_outcome
+            print('Making move level "easy"')
+            print_board(matrix)
+            counter += 1
+            break
+        else:
+            pass
+
+
+
+
+def mux():
+    global counter
+    if counter%2 == 0:
+        make_the_move(matrix)
+    else:
+        computer_move(matrix)
+
 
 
 def count_x():
@@ -83,7 +117,7 @@ def count_o():
 def count_space():
     sum_of_space = 0
     for i in range(0, len(state)):
-        if state[i] == "_" or state[i] == " ":
+        if state[i] == " ":
             sum_of_space += 1
     return sum_of_space
 
@@ -126,20 +160,24 @@ def display_state():
     both_win = 1 if x_win()*o_win() == 1 else 0
     if difference < 2 and not both_win:
         if x_win():
-            print("X wins")
+            return 1
+            #print("X wins")
         elif o_win():
-            print("O wins")
+            return 2
+            #print("O wins")
         elif space == 0:
-            print("Draw")
+            return 3
+            #print("Draw")
         else:
-            print("Game not finished")
+            return 0
+            #print("Game not finished")
 
     else:
         print("State is not possible")
 
 
-print("Enter the cells:")
-state = input()
+counter = 0
+state = "         "
 m = 3
 n = 3
 matrix = [[" " for x in range(n)] for x in range(m)]
@@ -154,5 +192,19 @@ matrix[2][1] = state[7]
 matrix[2][2] = state[8]
 
 print_board(matrix)
-make_the_move(matrix)
-display_state()
+while True:
+    board = display_state()
+    mux()
+    if board == 1:
+        print("X wins")
+        break
+    elif board == 2:
+        print("O wins")
+        break
+    elif board == 3:
+        print("Draw")
+        break
+    elif board == 0:
+        pass
+
+
