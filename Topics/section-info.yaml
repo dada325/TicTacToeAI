@@ -1,0 +1,24 @@
+content:
+- Overview of the basic program
+- Multi-line programs
+- Basic data types
+- Quotes and multi-line strings
+- Escape sequences
+- Variables
+- Naming variables
+- Taking input
+- Program with numbers
+- List
+- Indexes
+- Invoking a function
+- Declaring a function
+- Scopes
+- Basic string methods
+- Comparisons
+- For loop
+- List comprehension
+- Nested lists
+- Split and join
+- Errors
+- Any and all
+- Load module
