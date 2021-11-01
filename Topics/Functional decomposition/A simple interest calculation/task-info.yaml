@@ -11,5 +11,8 @@ files:
         # your code here
   learner_created: false
 feedback_link: https://hyperskill.org/learn/step/15772#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: <html>Correct solution</html>
+  time: Fri, 29 Oct 2021 23:56:07 UTC
 record: -1
